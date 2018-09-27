@@ -1,0 +1,173 @@
+﻿<Window x:Class="MPlayerOne.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPlayerOne"
+        mc:Ignorable="d"
+        Title="Babbys First Media Player" MinHeight="450" MinWidth="1000"
+        SizeToContent="WidthAndHeight"
+        KeyDown="OnButtonDownListener"
+        MouseDoubleClick="Window_MouseDoubleClick"
+        MouseWheel="Grid_MouseWheel">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" CanExecute="OpenBinding_CanExecute" Executed="OpenBinding_Executed" />
+        <CommandBinding Command="Play" CanExecute="PlayBinding_CanExecute" Executed="PlayBinding_Executed" />
+        <CommandBinding Command="Pause" CanExecute="PauseBinding_CanExecute" Executed="PauseBinding_Executed" />
+        <CommandBinding Command="Stop" CanExecute="StopBinding_CanExecute" Executed="StopBinding_Executed" />
+
+    </Window.CommandBindings>
+
+    <Grid MouseWheel="Grid_MouseWheel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"
+                           Name="topRow"/>
+            
+            <RowDefinition Height="*"
+                           Name="mediaRow"
+                           />
+            <RowDefinition Height="auto"
+                           Name="bottomRow"
+                           />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.ColumnSpan="3"
+              Grid.Row="0"
+              Name="mainMenu"
+              >
+            <MenuItem Header="File">
+                <MenuItem Header="Open"
+                          Name="openMenuItem"
+                          Command="ApplicationCommands.Open"/>
+
+            </MenuItem>
+            
+        </Menu>
+
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Orientation="Vertical">
+
+            <MediaElement Name="mediaPlayerMain"
+                          LoadedBehavior="Manual"
+                          Stretch="UniformToFill"
+                          MediaEnded="mediaPlayerMain_MediaEnded">
+            </MediaElement>
+
+            <Image Name="inCaseOfMusicOrImage"
+                   Stretch="UniformToFill"
+                   Margin="5"
+                   MaxHeight="300"
+                   MaxWidth="600"/>
+
+
+        </StackPanel>
+        
+        
+        <!--#region -->
+        <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Grid.Row="3"
+                        Name="mainToolBarStackPanel">
+
+            <Button Name="playBtn"  
+                        Command="Play"
+                        MinHeight="30"
+                        MinWidth="50"
+                        MaxHeight="30"
+                        MaxWidth="50"
+                        Margin="2">
+
+                    <Image Source="ImagesFolder/Play.png"
+                           Stretch="UniformToFill"/>
+
+                </Button>
+
+                    <Button Name="pauseBtn" 
+                            Command="Pause"
+                            MinHeight="30"
+                            MinWidth="50"
+                            MaxHeight="30"
+                            MaxWidth="50"
+                            Margin="2"
+                            VerticalAlignment="Center">
+
+                        <Image Source="ImagesFolder/Pause.png"
+                               Stretch="UniformToFill"/>
+
+                    </Button>
+
+                    <CheckBox Name="repeatBox"
+                              Margin="2"
+                              IsChecked="False">
+                                                
+                        <Image Source="ImagesFolder/RepeatSmol.png"
+                               Stretch="UniformToFill"/>
+
+                    </CheckBox>
+
+            <Button Name="stopBtn"
+                            Command="Stop"
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            MinHeight="30"
+                            MaxHeight="30"
+                            MinWidth="50"
+                            MaxWidth="50">
+
+                <Image Source="ImagesFolder/Stop.Png"
+                           Stretch="UniformToFill"/>
+
+            </Button>
+
+            <TextBlock Name="lblProgressStatus" 
+                           Margin="2"
+                           Text="00:00:00"
+                           VerticalAlignment="Center"/>
+
+                    <Slider Name="sliProgress"
+                            Thumb.DragStarted="sliProgress_DragStarted"
+                            Thumb.DragCompleted="sliProgress_DragCompleted"
+                            ValueChanged="sliProgress_ValueChanged"
+                            MinWidth="600"
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            TickFrequency="5"
+                            TickPlacement="Both"
+                            IsSnapToTickEnabled="True"
+                            IsMoveToPointEnabled="True"
+                            
+                            />
+
+                    <Button Name="muteBtn"
+                            Click="muteBtn_Click"
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            MinHeight="30"
+                            MaxHeight="30"
+                            MinWidth="50"
+                            MaxWidth="50">
+
+                        <Image Source="ImagesFolder/MuteSmol.png"
+                               Stretch="UniformToFill"/>
+
+                    </Button>
+
+
+
+
+                    <ProgressBar Name="pbVolume"
+                             Width="50"
+                             Height="12"
+                             Value="{Binding ElementName=mediaPlayerMain, Path=Volume}" 
+                             Margin="2"
+                             Maximum="10"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+            <!--#endregion-->
+    </Grid>
+</Window>

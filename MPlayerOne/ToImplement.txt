@@ -1,0 +1,22 @@
+﻿Fullscreen (Double click on media element) +
+5/10 second skip/rewind (right/left keys) +
+space bar pause command +
+
+slider clickable
+image file checking
+
+
+Basic controls: skipping ahead and back, pause,play,stop,repeat, +
+
+Playlist functionality
+
+//to do
+
+fix slider +
+subtitles (csv)
+
+
+
+
+
+Autoformat keyboard shortcut.
